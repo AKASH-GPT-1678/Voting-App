@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 contract Voting {
     address public owner;
-    mapping(address => bool) admins;
+    mapping(address => bool) public admins;
 
     struct Candidate {
         string name;
@@ -71,11 +71,11 @@ contract Voting {
         uint104 _endTime,
         string memory _name,
         string memory _reason,
-        string memory initail
+        string memory initial
     ) public {
         require(
-            bytes(candidates[initail].name).length > 0,
-            "initail does not exist"
+            bytes(candidates[initial].name).length > 0,
+            "initial does not exist"
         );
 
         Campaign storage camp = campaigns[_name];
@@ -84,6 +84,37 @@ contract Voting {
         camp.startTime = _startTime;
         camp.endTime = _endTime;
         camp.reason = _reason;
-        camp.candidates.push(initail);
+        camp.candidates.push(initial);
+    }
+
+    function deletCandidate(string memory _name) public {
+        require(
+            bytes(candidates[_name].name).length > 0,
+            "Candidate does not exist"
+        );
+        delete candidates[_name];
+    }
+
+    function deleteCampaign(string memory _name) public {
+        require(
+            bytes(campaigns[_name].name).length > 0,
+            "Campaign does not exist"
+        );
+        delete campaigns[_name];
+    }
+
+    function vote(string memory _name) public {
+        require(
+            bytes(candidates[_name].name).length > 0,
+            "Candidate does not exist"
+        );
+        candidates[_name].votes++;
+    }
+    function getCandidateVotes(string memory _name) public view returns (uint) {
+        require(
+            bytes(candidates[_name].name).length > 0,
+            "Candidate does not exist"
+        );
+        return candidates[_name].votes;
     }
 }

@@ -15,7 +15,7 @@ contract Voting {
         string name;
         uint104 startTime;
         uint104 endTime;
-        Candidate[] candidates;
+        string[] candidates;
         string reason;
     }
 
@@ -50,19 +50,40 @@ contract Voting {
         });
     }
 
-    function addCampaignCandidate(string memory _name, string memory _campaign) public {
-        require(bytes(candidates[_name].name).length > 0, "Candidate does not exist");
-        require(bytes(campaigns[_campaign].name).length > 0, "Campaign does not exist");
+    function addCampaignCandidate(
+        string memory _name,
+        string memory _campaign
+    ) public {
+        require(
+            bytes(candidates[_name].name).length > 0,
+            "Candidate does not exist"
+        );
+        require(
+            bytes(campaigns[_campaign].name).length > 0,
+            "Campaign does not exist"
+        );
 
-        campaigns[_campaign].candidates.push(Candidate({
-            name: _name,
-            description: candidates[_name].description,
-            feature: candidates[_name].feature,
-            votes: 0
-        }));
-
-
+        campaigns[_campaign].candidates.push(_name);
     }
 
-    function createCampaign(uint _startTime, uint _endTime) public {}
+    function createCampaign(
+        uint104 _startTime,
+        uint104 _endTime,
+        string memory _name,
+        string memory _reason,
+        string memory initail
+    ) public {
+        require(
+            bytes(candidates[initail].name).length > 0,
+            "initail does not exist"
+        );
+
+        Campaign storage camp = campaigns[_name];
+
+        camp.name = _name;
+        camp.startTime = _startTime;
+        camp.endTime = _endTime;
+        camp.reason = _reason;
+        camp.candidates.push(initail);
+    }
 }

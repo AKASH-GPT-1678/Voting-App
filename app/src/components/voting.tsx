@@ -6,7 +6,7 @@ import { VotingABI } from "../abi/Voting";
 const VotingContract = () => {
     const { signer } = useWallet();
     const [contract, setContract] = React.useState<ethers.Contract | null>(null);
-    
+
 
     const CONTRACT_ADDRESS = '0x30A06DaD0858a86624bAa3bFA9F260aAa13d4ED4';
 
@@ -18,7 +18,7 @@ const VotingContract = () => {
         }
     }, [signer]);
 
-   
+
     async function makeAdmin() {
         const admin = '0x5B38Da6a701c568545dCfcB03FcB875f56beddC4';
         if (!contract) return console.warn("Contract not ready yet");
@@ -31,7 +31,7 @@ const VotingContract = () => {
         }
     }
 
-  
+
     const checkIsAdmin = async () => {
         const admin = '0x5B38Da6a701c568545dCfcB03FcB875f56beddC4';
         if (!contract) return console.warn("Contract not ready yet");
@@ -44,10 +44,15 @@ const VotingContract = () => {
     }
 
     return (
-        <div>
-            <button onClick={makeAdmin} disabled={!contract}>Make Admin</button>
-            <button onClick={checkIsAdmin} disabled={!contract}>Check Admin</button>
-        </div>
+        <>
+            <div>
+                <button onClick={makeAdmin} disabled={!contract}>Make Admin</button>
+                <button onClick={checkIsAdmin} disabled={!contract}>Check Admin</button>
+            </div>
+            <div>
+
+            </div>
+        </>
     );
 }
 

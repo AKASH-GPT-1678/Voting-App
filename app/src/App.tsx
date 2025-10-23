@@ -1,4 +1,5 @@
 
+import CandidateForm from './components/candidate'
 import ConnectWallet from './components/ConnectWallet'
 import VotingContract from './components/voting'
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <ConnectWallet />
       <VotingContract />
+      <CandidateForm />
     </>
   )
 }

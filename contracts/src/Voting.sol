@@ -37,6 +37,7 @@ contract Voting {
     function isAdmin(address _address) public view returns (bool) {
         return admins[_address];
     }
+
     function addCandidate(
         string memory _name,
         string memory _description,
@@ -110,6 +111,7 @@ contract Voting {
         );
         candidates[_name].votes++;
     }
+
     function getCandidateVotes(string memory _name) public view returns (uint) {
         require(
             bytes(candidates[_name].name).length > 0,

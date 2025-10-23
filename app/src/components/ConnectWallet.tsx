@@ -1,9 +1,9 @@
 import { ethers } from 'ethers'
-import { useState } from 'react'
+
 import { useWallet } from '../context/walletcontext';
 const ConnectWallet = () => {
 
-    const { address, signer, connected, setAddress, setSigner, setConnected } = useWallet();
+    const { address, signer, connected, setAddress, setSigner } = useWallet();
 
 
     const handleEthers = async () => {
